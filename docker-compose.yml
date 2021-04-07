@@ -1,0 +1,17 @@
+version: '3.3'
+services:
+  mongo:
+    command: mongod
+    image: mongo:3.6.3
+    ports:
+      - "27017:27017"
+    volumes:
+      - /var/run/docker.sock:/var/run/docker.sock
+  api:
+    build:
+      context: "./api"
+      dockerfile: Dockerfile
+    volumes:
+      - "./api/src:/app/src"
+    ports:
+      - "3000:3000"
