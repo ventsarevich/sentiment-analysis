@@ -9,8 +9,6 @@ function App(): ReactElement {
         <p>
           Edit
           <code>src/App.tsx</code>
-          {' '}
-          and save to reload.wewwefwef
         </p>
         <a
           className="app-link"
