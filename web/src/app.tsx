@@ -8,6 +8,7 @@ function App(): ReactElement {
       <header className="app-header">
         <p>
           Edit
+          MY APP
           <code>src/App.tsx</code>
         </p>
         <a
