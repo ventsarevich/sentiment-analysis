@@ -10,12 +10,8 @@ import * as vader from 'vader-sentiment';
 import * as ml from 'ml-sentiment';
 import * as winkSentiment from 'wink-sentiment';
 import * as polarity from 'polarity';
-import * as retext from 'retext';
-import * as profanities from 'retext-profanities';
-import * as emoji from 'retext-emoji';
 import * as retextSentiment from 'retext-sentiment';
 import * as english from 'retext-english';
-import * as inspect from 'unist-util-inspect';
 
 import * as unified from 'unified';
 
@@ -113,10 +109,12 @@ export class MessagesService {
     //   })
     // );
     const processor = unified().use(english).use(retextSentiment);
-    const tree = await processor.run(
-      processor.parse('He’s set on beating your butt for sheriff! :cop:')
+    const results = await Promise.all(
+      texts.map(async (text) => {
+        const tree = await processor.run(processor.parse(text));
+        return tree.data.polarity;
+      })
     );
-    console.log(inspect(tree));
 
     // const temp = await retext()
     //   // .use(profanities)
@@ -124,7 +122,7 @@ export class MessagesService {
     //   .processSync('He’s set on beating your butt for sheriff! :cop:');
     // console.log(String(temp));
 
-    return { time: moment().diff(start, 'milliseconds'), results: [] };
+    return { time: moment().diff(start, 'milliseconds'), results };
   }
 
   async create(createCatDto: CreateMessageDto) {
