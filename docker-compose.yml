@@ -4,7 +4,7 @@ services:
     command: mongod
     image: mongo:3.6.3
     ports:
-      - "27017:27017"
+      - "27018:27017"
     volumes:
       - /var/run/docker.sock:/var/run/docker.sock
   api:
@@ -14,15 +14,16 @@ services:
     volumes:
       - "./api/src:/app/src"
     ports:
-      - "3000:3000"
-  web:
-    build:
-      context: "./web"
-      dockerfile: Dockerfile
-    volumes:
-      - "./web/src:/app/src"
-    environment:
-      NODE_ENV: development
-      HRM_HOST: "0.0.0.0"
-    ports:
-      - "3001:3000"
+      - "3010:3000"
+      - "9229:9229"
+#  web:
+#    build:
+#      context: "./web"
+#      dockerfile: Dockerfile
+#    volumes:
+#      - "./web/src:/app/src"
+#    environment:
+#      NODE_ENV: development
+#      HRM_HOST: "0.0.0.0"
+#    ports:
+#      - "3011:3000"
