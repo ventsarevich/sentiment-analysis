@@ -51,7 +51,7 @@ export class MessagesService {
     const s = new sentiyapa.Sentiyapa();
     s.init();
     const results = texts.map((item) => {
-      return s.score(item.text);
+      return s.score(item.text) * 10;
     });
 
     return { time: moment().diff(start, 'milliseconds'), results };
